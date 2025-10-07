@@ -18,6 +18,9 @@ const orderRoutes = require('./routes/orderRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 // =====================
 
+const app = express();
+
+
 app.get('/api/debug-env', (req, res) => {
   res.json({
     message: "Reading environment variables from the running server...",
@@ -42,7 +45,7 @@ const errorHandler = (err, req, res, next) => {
 // ===================================
 
 
-const app = express();
+
 
 // === MIDDLEWARE SETUP ===
 app.use(express.json());
