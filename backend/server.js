@@ -18,6 +18,13 @@ const orderRoutes = require('./routes/orderRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 // =====================
 
+app.get('/api/debug-env', (req, res) => {
+  res.json({
+    message: "Reading environment variables from the running server...",
+    FRONTEND_URL_VALUE: process.env.FRONTEND_URL || "--- VARIABLE NOT FOUND or is EMPTY ---"
+  });
+});
+
 // === ERROR HANDLING MIDDLEWARE ===
 const notFound = (req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);
