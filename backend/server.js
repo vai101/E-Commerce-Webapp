@@ -20,6 +20,28 @@ const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
 
+app.use(express.json());
+app.use(cookieParser());
+app.use(helmet());
+app.use(cors({
+    origin: ['http://localhost:5173', 'http://localhost:3000', process.env.FRONTEND_URL],
+    credentials: true, 
+}));
+
+
+app.get('/', (req, res) => {
+  res.send('E-commerce API is running...');
+});
+
+// === ROUTES (NOW COME AFTER MIDDLEWARE) === ✅
+
+// Your debug route
+app.get('/api/debug-env', (req, res) => {
+  res.json({
+    message: "Reading environment variables from the running server...",
+    FRONTEND_URL_VALUE: process.env.FRONTEND_URL || "--- VARIABLE NOT FOUND or is EMPTY ---"
+  });
+});
 
 app.get('/api/debug-env', (req, res) => {
   res.json({
@@ -48,13 +70,7 @@ const errorHandler = (err, req, res, next) => {
 
 
 // === MIDDLEWARE SETUP ===
-app.use(express.json());
-app.use(cookieParser());
-app.use(helmet());
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', process.env.FRONTEND_URL],
-    credentials: true, 
-}));
+
 app.get('/', (req, res) => {
   res.send('E-commerce API is running...');
 });
