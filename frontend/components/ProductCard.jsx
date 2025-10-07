@@ -44,7 +44,6 @@ app.use(cors({
 app.use(express.json()); // Body parser for JSON
 app.use(cookieParser()); // Parser for cookies
 app.use(helmet()); // Basic security headers
-app.use('/uploads', express.static('uploads'));
 
 // --- 3. API ROUTES ---
 app.get('/', (req, res) => {
@@ -66,3 +65,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => 
     console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`)
 );
+
+// Frontend code example (React/JSX) for rendering product image
+// <img src={product.image} alt={product.name} />
