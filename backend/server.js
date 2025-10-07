@@ -24,10 +24,20 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', process.env.FRONTEND_URL],
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        process.env.FRONTEND_URL,
+        'https://e-commerce-webapp-mu.vercel.app' // <-- Add your Vercel frontend URL here
+    ],
     credentials: true, 
 }));
 
+// Log CORS requests for debugging
+app.use((req, res, next) => {
+    console.log('CORS request from:', req.headers.origin);
+    next();
+});
 
 app.get('/', (req, res) => {
   res.send('E-commerce API is running...');

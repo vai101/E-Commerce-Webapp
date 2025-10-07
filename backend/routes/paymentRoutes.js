@@ -26,7 +26,17 @@ router.post('/verify', async (req, res) => {
     // Log incoming data for debugging
     console.log('Payment verification payload:', req.body);
 
+    // Check for missing fields
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        console.error('Missing payment verification fields:', req.body);
+        return res.status(400).json({ success: false, message: "Missing payment verification fields." });
+    }
+
     const secret = process.env.RAZORPAY_SECRET;
+    if (!secret) {
+        console.error('RAZORPAY_SECRET not set in environment variables.');
+        return res.status(500).json({ success: false, message: "Server configuration error: RAZORPAY_SECRET missing." });
+    }
 
     const generated_signature = crypto
         .createHmac('sha256', secret)
