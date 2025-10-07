@@ -33,14 +33,11 @@ connectDB();
 
 // --- 2. MIDDLEWARE SETUP ---
 // Enable CORS with specific options
-app.use(cors({
-    origin: [
-        'http://localhost:5173', // For local dev
-        process.env.FRONTEND_URL,
-        'https://e-commerce-webapp-mu.vercel.app' // Your Vercel URL
-    ],
-    credentials: true, 
-}));
+const corsOptions = {
+    origin: 'https://e-commerce-webapp-mu.vercel.app',
+    credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json()); // Body parser for JSON
 app.use(cookieParser()); // Parser for cookies
 app.use(helmet()); // Basic security headers
