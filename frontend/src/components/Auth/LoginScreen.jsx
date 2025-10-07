@@ -6,20 +6,36 @@ import { useNavigate, Link } from 'react-router-dom';
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login, loading, error } = useAuth();
+    const { login, loading, error, user } = useAuth();
     const navigate = useNavigate();
+    const [adminMode, setAdminMode] = useState(false);
 
     const submitHandler = async (e) => {
         e.preventDefault();
         const success = await login(email, password);
         if (success) {
-            navigate('/');
+            if (adminMode) {
+                if (user && user.role === 'admin') {
+                    navigate('/admin/products/new');
+                } else {
+                    // Re-read from localStorage in case context updates after login
+                    const u = JSON.parse(localStorage.getItem('userInfo'));
+                    if (u?.role === 'admin') {
+                        navigate('/admin/products/new');
+                    } else {
+                        alert('This account is not an admin. Logging in as a regular user.');
+                        navigate('/');
+                    }
+                }
+            } else {
+                navigate('/');
+            }
         }
     };
 
     return (
-        <div className="flex justify-center items-center py-10 bg-gray-800">
-            <div className="w-full max-w-md p-8 space-y-6 bg-gray-900 rounded-lg shadow-lg">
+        <div className="flex justify-center items-center py-10 bg-gray-800 animate-fadeIn">
+            <div className="w-full max-w-md p-8 space-y-6 bg-gray-900 rounded-lg shadow-lg animate-slideUp">
                 <h2 className="text-3xl font-bold text-center text-white">Sign In</h2>
                 
                 {error && <p className="text-red-500 text-center">{error}</p>}
@@ -49,6 +65,15 @@ const LoginScreen = () => {
                             placeholder="••••••••"
                         />
                     </div>
+                    <label className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            checked={adminMode}
+                            onChange={(e) => setAdminMode(e.target.checked)}
+                            className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="text-sm text-gray-300">Login as admin (redirect to admin panel)</span>
+                    </label>
                     <button 
                         type="submit" 
                         disabled={loading}

@@ -29,17 +29,22 @@ const getProductById = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-    // Simple placeholder data. Admin form would provide actual data.
+    const { name, price, description, image, brand, category, stock } = req.body;
+
+    if (!name || price === undefined || !description || !image || !category || stock === undefined) {
+        res.status(400);
+        throw new Error('Missing required fields: name, price, description, image, category, stock');
+    }
+
     const product = new Product({
-        name: 'Sample Name',
-        price: 0,
-        user: req.user._id, // User ID is attached via the 'protect' middleware
-        image: '/images/sample.jpg', // Placeholder for image upload later
-        brand: 'Sample Brand',
-        category: 'Sample Category',
-        stock: 0,
-        numReviews: 0,
-        description: 'Sample description',
+        name,
+        price,
+        description,
+        image,
+        brand: brand || '',
+        category,
+        stock,
+        user: req.user._id,
     });
 
     const createdProduct = await product.save();

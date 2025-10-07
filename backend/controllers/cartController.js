@@ -24,9 +24,28 @@ const addItemToCart = asyncHandler(async (req, res) => {
     const { productId, qty } = req.body;
     const product = await Product.findById(productId);
 
-    if (!product || product.stock < qty) {
+    if (!product) {
         res.status(404);
-        throw new Error('Product not found or insufficient stock.');
+        throw new Error('Product not found.');
+    }
+
+    // If qty is 0 or less, remove item from cart if present
+    let cart = await Cart.findOne({ user: req.user._id });
+    if (qty <= 0) {
+        if (!cart) {
+            return res.status(200).json({ user: req.user._id, items: [] });
+        }
+        const itemIndex = cart.items.findIndex(i => i.product.toString() === productId);
+        if (itemIndex > -1) {
+            cart.items.splice(itemIndex, 1);
+            await cart.save();
+        }
+        return res.status(200).json(cart);
+    }
+
+    if (product.stock < qty) {
+        res.status(400);
+        throw new Error('Insufficient stock.');
     }
 
     const item = {
@@ -37,19 +56,13 @@ const addItemToCart = asyncHandler(async (req, res) => {
         qty: qty,
     };
 
-    let cart = await Cart.findOne({ user: req.user._id });
-
     if (!cart) {
-        // Create new cart
         cart = await Cart.create({ user: req.user._id, items: [item] });
     } else {
         const itemIndex = cart.items.findIndex(i => i.product.toString() === productId);
-
         if (itemIndex > -1) {
-            // Update quantity if item exists
             cart.items[itemIndex].qty = qty;
         } else {
-            // Add new item
             cart.items.push(item);
         }
         await cart.save();

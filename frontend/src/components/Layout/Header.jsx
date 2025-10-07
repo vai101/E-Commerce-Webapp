@@ -19,6 +19,13 @@ const PackageIcon = (props) => (
         <path d="M20 12H4"/>
     </svg>
 );
+const CartIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h7.72a2 2 0 0 0 2-1.61L21 6H6"/>
+    </svg>
+);
 // -------------------------------------------------------------------
 
 
@@ -48,20 +55,19 @@ const Header = () => {
     const isAdmin = user && user.role === 'admin';
 
     return (
-        <header className="bg-gray-900 shadow-lg sticky top-0 z-10">
+        <header className="bg-gray-900/90 backdrop-blur shadow-lg sticky top-0 z-10 animate-fadeIn">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 
                 {/* Logo / Brand Name */}
-                <Link to="/" className="text-2xl font-bold text-blue-400 tracking-wider hover:text-blue-300 transition duration-150">
-                    Ecom Store
+                <Link to="/" className="text-2xl font-bold text-blue-400 tracking-wider hover:text-blue-300 transition duration-150 animate-pop">
+                    Thriftshop
                 </Link>
 
                 {/* Navigation and Profile Area */}
                 <div className="flex items-center space-x-6">
-                    
                     {/* Cart Icon/Link */}
-                    <Link to="/cart" className="text-gray-300 hover:text-blue-400 transition duration-150 text-lg">
-                        Cart
+                    <Link to="/cart" className="text-gray-300 hover:text-blue-400 transition duration-150" aria-label="Cart">
+                        <CartIcon className="w-6 h-6" />
                     </Link>
 
                     {/* Dynamic Profile Area */}
@@ -111,13 +117,22 @@ const Header = () => {
                                     
                                     {/* Admin Link (RBAC Showcase) */}
                                     {isAdmin && (
-                                        <Link 
-                                            to="/admin/orders" 
-                                            onClick={() => setDropdownOpen(false)}
-                                            className="flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition duration-150"
-                                        >
-                                            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM6.5 9.5a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm-5 4a1 1 0 01-1-1v-2h-2v2a3 3 0 006 0v-2h-2v2a1 1 0 01-1 1z" clipRule="evenodd" fillRule="evenodd"/></svg> Admin Panel
-                                        </Link>
+                                        <>
+                                            <Link 
+                                                to="/admin/orders" 
+                                                onClick={() => setDropdownOpen(false)}
+                                                className="flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition duration-150"
+                                            >
+                                                <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zM6.5 9.5a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm-5 4a1 1 0 01-1-1v-2h-2v2a3 3 0 006 0v-2h-2v2a1 1 0 01-1 1z" clipRule="evenodd" fillRule="evenodd"/></svg> Admin Panel
+                                            </Link>
+                                            <Link 
+                                                to="/admin/products/new" 
+                                                onClick={() => setDropdownOpen(false)}
+                                                className="flex items-center px-4 py-2 text-sm text-yellow-400 hover:bg-gray-700 transition duration-150"
+                                            >
+                                                <svg className="w-4 h-4 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/></svg> Add Product
+                                            </Link>
+                                        </>
                                     )}
 
                                     <button 

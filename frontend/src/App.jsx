@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom'; 
 
 // Component Imports
 import HomeScreen from './components/Product/HomeScreen';
@@ -10,23 +9,14 @@ import RegisterScreen from './components/Auth/RegisterScreen'; // Assuming you c
 import VerifyEmailScreen from './components/Auth/VerifyEmailScreen'; // Corrected Path
 import CartScreen from './components/Cart/CartScreen';
 import CheckoutScreen from './components/Payment/CheckoutScreen';
+import Header from './components/Layout/Header';
+import AdminCreateProduct from './components/Product/AdminCreateProduct';
 import './App.css';
-
-// Helper Components (Keeping Header/Footer simple here for flow)
-const Header = () => (
-    <header className="app-header"> {/* <-- Use className */}
-        <Link to="/"><strong>Ecom Store</strong></Link> {/* Make logo bold */}
-        <nav>
-            <Link to="/cart">Cart</Link>
-            <Link to="/login">Sign In</Link>
-        </nav>
-    </header>
-);
 
 const Footer = () => (
     <footer className="app-footer"> {/* <-- Use className */}
         <div>
-            &copy; 2025 MERN Ecom | Designed for Scale and Security
+            &copy; 2025 Thirftshop | Designed for Scale and Security
         </div>
     </footer>
 );
@@ -53,6 +43,7 @@ function App() {
           
           {/* Admin Routes - Requires implementation */}
           {/* <Route path="/admin/orders" element={<AdminOrderScreen />} /> */}
+          <Route path="/admin/products/new" element={<AdminCreateProduct />} />
           
         </Routes>
       </main>

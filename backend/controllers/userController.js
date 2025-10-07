@@ -74,6 +74,19 @@ const loginUser = asyncHandler(async (req, res) => {
             throw new Error('Account not verified. Please check your email.');
         }
 
+        // Enforce single-admin policy via ENV ADMIN_EMAIL
+        const adminEmail = process.env.ADMIN_EMAIL;
+        if (adminEmail) {
+            if (user.email === adminEmail && user.role !== 'admin') {
+                user.role = 'admin';
+                await user.save();
+            } else if (user.email !== adminEmail && user.role === 'admin') {
+                // Demote non-admin-email accounts to user to keep exactly one admin
+                user.role = 'user';
+                await user.save();
+            }
+        }
+
         const { accessToken, refreshToken } = generateTokens(user._id, user.role);
 
         // Set refresh token in HTTP-only cookie (Crucial Security Step)
