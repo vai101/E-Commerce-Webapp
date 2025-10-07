@@ -51,11 +51,10 @@ const errorHandler = (err, req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
-// app.use(cors({
-//     origin: ['http://localhost:5173', 'http://localhost:3000', process.env.FRONTEND_URL],
-//     credentials: true, 
-// }));
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173', 'http://localhost:3000', process.env.FRONTEND_URL],
+    credentials: true, 
+}));
 app.get('/', (req, res) => {
   res.send('E-commerce API is running...');
 });
