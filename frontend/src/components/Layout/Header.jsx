@@ -58,7 +58,7 @@ const Header = () => {
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 
                 <Link to="/" className="text-2xl font-bold text-blue-400 tracking-wider hover:text-blue-300 transition duration-150 animate-pop">
-                    Thriftshop
+                    E - Commerce
                 </Link>
 
                 <div className="flex items-center space-x-6">

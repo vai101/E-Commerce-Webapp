@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Component Imports
 import HomeScreen from './components/Product/HomeScreen';
 import ProductScreen from './components/Product/ProductScreen';
 import LoginScreen from './components/Auth/LoginScreen'; 
@@ -16,7 +15,7 @@ import './App.css';
 const Footer = () => (
     <footer className="app-footer"> 
         <div>
-            &copy; 2025 Thirftshop | Designed for Scale and Security
+            &copy; 2025 Vaibhav Anand | Designed for Scale and Security
         </div>
     </footer>
 );
