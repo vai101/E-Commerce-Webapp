@@ -10,7 +10,7 @@ The application is architected for scalability and is optimized for free deploym
 
 ### Authentication & Security
 - **Secure Access**: JWT Access and Refresh tokens for session management
-  - User sessions are secured using HTTP-only cookies for the refresh token, mitigating XSS attacks
+  - User sessions are secured using HTTP-only cookies for the refresh token,
 - **Email Verification**: Ensures real users are signing up
   - Email verification implemented via Brevo SMTP and Nodemailer
 
@@ -77,56 +77,6 @@ Follow these steps to set up and run the application on your local machine.
 
 The application will be accessible at `http://localhost:5173`.
 
-## 🔒 Environment Variables Configuration
-
-### Backend Environment Variables (`backend/.env`)
-
-| Variable | Purpose | Example Value |
-|----------|---------|---------------|
-| `MONGO_URI` | Connection string for your MongoDB Atlas cluster | `mongodb+srv://user:pass@cluster0.gzpw41a.mongodb.net/` |
-| `JWT_SECRET` | **CRITICAL**: Private secret key for signing tokens | Use a random 64-character hex string |
-| `RAZORPAY_KEY_ID` | Your public test key for Razorpay integration | `rzp_test_...` |
-| `RAZORPAY_KEY_SECRET` | Your private secret key for Razorpay | `your_razorpay_secret` |
-| `EMAIL_HOST` | SMTP server address (e.g., smtp-relay.brevo.com) | `smtp-relay.brevo.com` |
-| `EMAIL_PORT` | SMTP server port | `587` |
-| `EMAIL_USER` | SMTP username/email | `your-smtp-username` |
-| `EMAIL_PASS` | SMTP password | `your-smtp-password` |
-| `SENDER_EMAIL` | The verified email address visible to customers | `noreply@ecomstore.com` |
-| `FRONTEND_URL` | For local: `http://localhost:5173`. For production: Your Vercel domain | `http://localhost:5173` |
-
-### Frontend Environment Variables (`frontend/.env`)
-
-| Variable | Purpose | Example Value |
-|----------|---------|---------------|
-| `VITE_API_URL` | API base URL. For local: `http://localhost:5000/api` | `http://localhost:5000/api` |
-| `VITE_RAZORPAY_KEY_ID` | Your public Razorpay key for frontend integration | `rzp_test_...` |
-
-## 📁 Project Structure
-
-```
-E-Commerce-Webapp/
-├── backend/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   ├── .env
-│   ├── server.js
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── context/
-│   │   ├── utils/
-│   │   └── App.jsx
-│   ├── .env
-│   ├── index.html
-│   └── package.json
-└── README.md
-```
-
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -176,11 +126,6 @@ The application uses SMTP for sending verification emails. Configure your prefer
 2. Get your SMTP credentials
 3. Add to your backend `.env` file
 
-### Alternative Email Services
-- Gmail SMTP
-- SendGrid
-- Mailgun
-- Amazon SES
 
 ## 💳 Payment Gateway Setup
 
@@ -209,33 +154,9 @@ The application uses SMTP for sending verification emails. Configure your prefer
 - Check email service provider settings
 - Ensure sender email is verified
 
-## 📝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Support
-
-If you encounter any issues or have questions:
-1. Check the troubleshooting section above
-2. Open an issue on GitHub
-3. Review the documentation for each integrated service
-
-## 🔗 Useful Links
-
-- [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
-- [Razorpay API Documentation](https://razorpay.com/docs/)
-- [Brevo SMTP Documentation](https://developers.brevo.com/)
-- [Vercel Deployment Guide](https://vercel.com/docs)
-- [Render Deployment Guide](https://render.com/docs)
 
 ---
+
+Hosted Link - https://e-commerce-webapp-mu.vercel.app/
 
 **Built with ❤️ using the MERN Stack**

@@ -30,7 +30,7 @@ const HomeScreen = () => {
       {/* Hero Heading */}
       <section className="text-center mb-10 sm:mb-12 lg:mb-14">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-600 bg-clip-text text-transparent animate-slideUp opacity-0" style={{ animationDelay: '0s' }}>
-          E - Commerce
+          E-Commerce
         </h1>
         <p className="max-w-2xl mx-auto text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 animate-slideUp opacity-0" style={{ animationDelay: '1s' }}>
           Discover pre-loved gems at delightful prices — sustainable style, delivered to you.

@@ -21,6 +21,8 @@ CRITICAL: Prevents exposing your MONGO_URI, JWT_SECRETS, and RAZORPAY_KEYS
 .env.development.local
 .env.test.local
 .env.production.local
+/backend/.env
+/frontend/.env
 
 # Frontend Build Artifacts
 /frontend/dist
