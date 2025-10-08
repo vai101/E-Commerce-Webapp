@@ -1,4 +1,3 @@
-// src/components/Cart/CartScreen.jsx (Updated)
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/api';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,7 +7,7 @@ const CartScreen = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [editingQtyByProduct, setEditingQtyByProduct] = useState({}); // { [productId]: number }
+    const [editingQtyByProduct, setEditingQtyByProduct] = useState({}); 
 
     useEffect(() => {
         const fetchCart = async () => {
@@ -50,7 +49,6 @@ const CartScreen = () => {
         if (newQty === item.qty) return;
         try {
             await apiClient.post('/cart', { productId: id, qty: newQty });
-            // Refresh cart
             const { data } = await apiClient.get('/cart');
             setCart(data);
             setEditingQtyByProduct((prev) => {
@@ -80,7 +78,6 @@ const CartScreen = () => {
         <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 animate-fadeIn">
             <h1 className="text-3xl font-bold text-white mb-8">Shopping Cart</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Cart Items List */}
                 <div className="lg:col-span-2 space-y-4">
                     {cart.items.map((item) => (
                         <div key={getProductId(item)} className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md animate-slideUp">
@@ -135,7 +132,6 @@ const CartScreen = () => {
                     ))}
                 </div>
 
-                {/* Cart Summary Card */}
                 <div className="bg-gray-800 rounded-lg shadow-md p-6 h-fit animate-slideUp">
                     <h2 className="text-2xl font-bold text-white border-b border-gray-700 pb-4 mb-4">
                         Order Summary
@@ -144,7 +140,6 @@ const CartScreen = () => {
                         <span>Subtotal ({cart.items.reduce((acc, item) => acc + item.qty, 0)} items)</span>
                         <span>₹{calculateTotal()}</span>
                     </div>
-                    {/* Add shipping, taxes etc. here if needed */}
                     <div className="flex justify-between font-bold text-white text-xl mt-6 pt-4 border-t border-gray-700">
                         <span>Total</span>
                         <span>₹{calculateTotal()}</span>

@@ -1,4 +1,3 @@
-// src/components/Auth/LoginScreen.jsx (Updated)
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -18,7 +17,7 @@ const LoginScreen = () => {
                 if (user && user.role === 'admin') {
                     navigate('/admin/products/new');
                 } else {
-                    // Re-read from localStorage in case context updates after login
+                   
                     const u = JSON.parse(localStorage.getItem('userInfo'));
                     if (u?.role === 'admin') {
                         navigate('/admin/products/new');

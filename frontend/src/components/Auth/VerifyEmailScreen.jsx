@@ -1,4 +1,3 @@
-// frontend/src/components/Auth/VerifyEmailScreen.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import apiClient from '../../api/api';
@@ -15,7 +14,7 @@ const VerifyEmailScreen = () => {
                 return;
             }
             try {
-                // Submit the token to the backend API endpoint
+    
                 const { data } = await apiClient.get(`/users/verify-email/${token}`);
                 
                 setVerificationStatus(data.message || 'Email successfully verified!');

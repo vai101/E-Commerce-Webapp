@@ -13,15 +13,13 @@ const RegisterScreen = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        setMessage(null);
+        setMessage(null);  
         
-        // Ensure password complexity check here for extra points!
-        
-        const result = await register(name, email, password);
+       const result = await register(name, email, password);
         
         if (result.success) {
             setMessage(result.message);
-            // Optionally redirect to login after a short delay
+       
             setTimeout(() => navigate('/login'), 3000); 
         } else {
             setMessage(result.message);

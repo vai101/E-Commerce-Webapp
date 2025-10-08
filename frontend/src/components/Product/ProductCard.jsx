@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [qty, setQty] = useState(1);
-  // Add to cart with qty 1 and redirect
+ 
   const addToCartHandler = async () => {
     if (!user) {
       alert('Please login to add items to your cart.');

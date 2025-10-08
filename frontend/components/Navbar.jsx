@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CartIcon, UserIcon } from './Icons'; // Adjust the import based on your file structure
+import { CartIcon, UserIcon } from './Icons'; 
 
 const Navbar = () => {
-  const { user } = useSelector((state) => state.auth); // Assuming you are using Redux for state management
+  const { user } = useSelector((state) => state.auth); 
 
   return (
     <nav>

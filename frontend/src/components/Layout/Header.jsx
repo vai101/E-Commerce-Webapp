@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'; 
 
-// --- Icons (using simple inline SVG for portability) ---
 const UserIcon = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
@@ -58,22 +57,19 @@ const Header = () => {
         <header className="bg-gray-900/90 backdrop-blur shadow-lg sticky top-0 z-10 animate-fadeIn">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 
-                {/* Logo / Brand Name */}
                 <Link to="/" className="text-2xl font-bold text-blue-400 tracking-wider hover:text-blue-300 transition duration-150 animate-pop">
                     Thriftshop
                 </Link>
 
-                {/* Navigation and Profile Area */}
                 <div className="flex items-center space-x-6">
-                    {/* Cart Icon/Link */}
+
                     <Link to="/cart" className="text-gray-300 hover:text-blue-400 transition duration-150" aria-label="Cart">
                         <CartIcon className="w-6 h-6" />
                     </Link>
 
-                    {/* Dynamic Profile Area */}
                     <div ref={dropdownRef} className="relative">
                         {user ? (
-                            // LOGGED IN: Profile Icon and Dropdown
+                      
                             <button
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 className="flex items-center space-x-2 text-gray-300 hover:text-white focus:outline-none transition duration-150"
@@ -84,7 +80,7 @@ const Header = () => {
                                 <span className="hidden sm:inline font-medium">{user.name.split(' ')[0]}</span>
                             </button>
                         ) : (
-                            // LOGGED OUT: Sign In Link
+ 
                             <Link 
                                 to="/login" 
                                 className="px-3 py-1.5 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition duration-150"
@@ -93,7 +89,6 @@ const Header = () => {
                             </Link>
                         )}
 
-                        {/* Dropdown Menu Content */}
                         {user && dropdownOpen && (
                             <div className="absolute right-0 mt-3 w-48 bg-gray-800 rounded-md shadow-xl overflow-hidden z-20 transition transform duration-150 origin-top-right">
                                 <div className="py-1">
@@ -115,7 +110,6 @@ const Header = () => {
                                         <PackageIcon className="w-4 h-4 mr-2"/> Orders
                                     </Link>
                                     
-                                    {/* Admin Link (RBAC Showcase) */}
                                     {isAdmin && (
                                         <>
                                             <Link 

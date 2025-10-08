@@ -1,10 +1,8 @@
-/* App.css - Remove the old content and add this */
-
 .app-header {
   padding: 1rem;
-  border-bottom: 1px solid #444; /* Dark mode friendly border */
+  border-bottom: 1px solid #444; 
   display: flex;
-  justify-content: space-between; /* Better alignment */
+  justify-content: space-between; 
   align-items: center;
 }
 
@@ -12,14 +10,12 @@
   margin: 0 0.75rem;
 }
 
-/* This is the class for your main content area */
 .app-main {
   padding: 1.5rem;
   min-height: 80vh;
 }
 
 .app-footer {
-  /* Using classes instead of Tailwind syntax */
   background-color: #1a1a1a;
   color: #888;
   padding: 1.5rem 1rem;

@@ -1,4 +1,3 @@
-// backend/models/cartModel.js
 const mongoose = require('mongoose');
 
 const cartItemSchema = new mongoose.Schema({
@@ -18,7 +17,7 @@ const cartSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-        unique: true // A user should only have one active cart
+        unique: true 
     },
     items: [cartItemSchema],
 }, {

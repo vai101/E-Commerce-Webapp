@@ -1,4 +1,3 @@
-// src/components/Product/ProductScreen.jsx (Updated)
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import apiClient from '../../api/api';
@@ -29,7 +28,7 @@ const ProductScreen = () => {
 
     const addToCartHandler = async () => {
         if (!user) {
-            // Consider a more user-friendly modal or redirect with state
+
             alert('Please login to add items to your cart.');
             navigate('/login');
             return;

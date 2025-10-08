@@ -1,4 +1,3 @@
-// frontend/src/utils/loadRazorpayScript.js
 const loadRazorpayScript = (src) => {
     return new Promise((resolve) => {
         const script = document.createElement('script');

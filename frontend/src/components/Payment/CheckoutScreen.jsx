@@ -1,4 +1,3 @@
-// frontend/src/components/Payment/CheckoutScreen.jsx
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/api';
 import loadRazorpayScript from '../../utils/loadRazorpayScript';
@@ -26,14 +25,14 @@ const CheckoutScreen = () => {
             setCart(data);
             setLoading(false);
         };
-        // Prefill shipping address from localStorage if available
+ 
         const saved = localStorage.getItem('shippingAddress');
         if (saved) {
             try {
                 setShippingAddress(JSON.parse(saved));
             } catch {}
         } else if (user) {
-            // Basic prefill from user where sensible
+        
             setShippingAddress((prev) => ({ ...prev, fullName: user.name || '' }));
         }
         fetchCart();
@@ -44,17 +43,14 @@ const CheckoutScreen = () => {
 
         const totalAmountPaise = Math.round(cart.items.reduce((acc, item) => acc + item.qty * item.price, 0) * 100);
 
-        // 1. Backend Call: Get Razorpay Order ID
         const { data: { id, currency, amount, key_id } } = await apiClient.post('/payment/create-order', {
             amount: totalAmountPaise,
             currency: 'INR'
         });
 
-        // 2. Load Razorpay Script
         const res = await loadRazorpayScript('https://checkout.razorpay.com/v1/checkout.js');
         if (!res) return alert('Razorpay SDK failed to load.');
 
-        // 3. Configure Payment Options
         const options = {
             key: key_id, 
             amount: amount, 
@@ -63,27 +59,26 @@ const CheckoutScreen = () => {
             description: "Purchase Checkout",
             order_id: id,
             handler: async function (response) {
-                // This function runs on SUCCESSFUL payment!
+
                 const paymentData = {
                     orderId: response.razorpay_order_id,
                     paymentId: response.razorpay_payment_id,
                     signature: response.razorpay_signature,
-                    // Package all necessary data for final backend processing
+                 
                     orderDetails: {
                         items: cart.items,
                         shippingAddress: shippingAddress,
-                        totalPrice: amount / 100 // Convert back to Rupees
+                        totalPrice: amount / 100 
                     }
                 };
 
-                // 4. Final Backend Call: Verify signature, create Order, deduct Inventory (Phase 6 logic)
                 try {
                     await apiClient.post('/payment/verify-payment', paymentData);
                     if (saveAddress) {
                         localStorage.setItem('shippingAddress', JSON.stringify(shippingAddress));
                     }
                     alert("Payment successful! Order placed.");
-                    // Redirect user to order history page
+
                     window.location.href = '/'; 
                 } catch (err) {
                     alert('Payment verification failed after successful transaction.');
@@ -110,7 +105,7 @@ const CheckoutScreen = () => {
 
                 {cart && cart.items.length > 0 ? (
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Address Form */}
+                  
                         <div className="lg:col-span-2 text-gray-300">
                             <h3 className="font-semibold text-lg border-b border-gray-700 pb-2 mb-4">Shipping Address</h3>
                             <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); displayRazorpay(); }}>
@@ -211,7 +206,6 @@ const CheckoutScreen = () => {
                             </form>
                         </div>
 
-                        {/* Order Summary */}
                         <div className="bg-gray-800 rounded-lg shadow-md p-6 h-fit">
                             <h3 className="text-2xl font-bold text-white border-b border-gray-700 pb-4 mb-4">
                                 Order Summary

@@ -1,4 +1,3 @@
-// frontend/src/components/Product/HomeScreen.jsx
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import ProductCardSkeleton from './ProductCardSkeleton';

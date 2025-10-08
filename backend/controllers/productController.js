@@ -1,19 +1,12 @@
-// backend/controllers/productController.js
 const asyncHandler = require('express-async-handler');
 const Product = require('../models/productModel');
 
-// @desc    Fetch all products (Public)
-// @route   GET /api/products
-// @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-    // Implement advanced search/filtering here in Phase 5
+
     const products = await Product.find({});
     res.json(products);
 });
 
-// @desc    Fetch single product by ID (Public)
-// @route   GET /api/products/:id
-// @access  Public
 const getProductById = asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
@@ -25,9 +18,6 @@ const getProductById = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc    Create a product (Admin only)
-// @route   POST /api/products
-// @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
     const { name, price, description, image, brand, category, stock } = req.body;
 
@@ -51,9 +41,6 @@ const createProduct = asyncHandler(async (req, res) => {
     res.status(201).json(createdProduct);
 });
 
-// @desc    Update a product (Admin only)
-// @route   PUT /api/products/:id
-// @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
     const { name, price, description, image, brand, category, stock } = req.body;
     const product = await Product.findById(req.params.id);
@@ -76,37 +63,36 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 const searchProducts = asyncHandler(async (req, res) => {
-    const { query } = req.query; // e.g., /api/products/search?query=laptop
+    const { query } = req.query; 
 
     if (!query) {
         res.status(400);
         throw new Error('Search query is required');
     }
 
-    // This aggregation pipeline uses the $search stage for high-performance search
     const pipeline = [
         {
             $search: {
-                index: 'productSearch', // Match the name of your Atlas Search Index
+                index: 'productSearch', 
                 text: {
                     query: query,
                     path: ['name', 'description', 'category'],
-                    fuzzy: {} // Optional: adds tolerance for typos
+                    fuzzy: {} 
                 }
             }
         },
         {
-            $limit: 10 // Limit results for pagination/performance
+            $limit: 10 
         },
         {
             $project: {
-                // Project fields needed for the frontend
+               
                 _id: 1,
                 name: 1,
                 price: 1,
                 image: 1,
                 category: 1,
-                score: { $meta: "searchScore" } // Show search relevance
+                score: { $meta: "searchScore" } 
             }
         }
     ];
@@ -120,5 +106,5 @@ module.exports = {
     getProductById,
     createProduct,
     updateProduct,
-    searchProducts // Add the new export
+    searchProducts 
 };

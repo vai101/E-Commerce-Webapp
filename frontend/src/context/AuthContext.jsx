@@ -1,4 +1,3 @@
-// frontend/src/context/AuthContext.jsx
 import React, { createContext, useState, useContext } from 'react';
 import apiClient from '../api/api';
 
@@ -7,7 +6,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    // Check local storage for initial state or set to null
+
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem('userInfo')) || null
     );
@@ -20,7 +19,6 @@ export const AuthProvider = ({ children }) => {
         try {
             const { data } = await apiClient.post('/users/login', { email, password });
             
-            // Store user info and access token (access token in localStorage/memory, refresh token is in cookie)
             localStorage.setItem('userInfo', JSON.stringify(data));
             localStorage.setItem('accessToken', data.accessToken);
             setUser(data);
@@ -48,12 +46,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        // Clear all stored data
+   
         localStorage.removeItem('userInfo');
         localStorage.removeItem('accessToken');
         setUser(null);
-        // Note: The backend should have a /logout route to clear the HTTP-only cookie
-        apiClient.post('/users/logout'); // Assuming a simple backend logout route exists
+
+        apiClient.post('/users/logout');
     };
 
     return (

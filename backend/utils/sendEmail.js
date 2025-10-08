@@ -1,33 +1,28 @@
-// backend/utils/sendEmail.js
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 
 const sendVerificationEmail = async (user) => {
-    // 1. Generate a temporary, short-lived token for verification
+   
     const verificationToken = jwt.sign(
         { id: user._id },
-        process.env.JWT_SECRET, // Uses your custom JWT secret
-        { expiresIn: '1h' } // Link expires in 1 hour
+        process.env.JWT_SECRET, 
+        { expiresIn: '1h' } 
     );
 
-    // 2. Construct the verification URL
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
 
-    // 3. Configure the Email Transporter using generic SMTP (Brevo)
-    // IMPORTANT: It uses EMAIL_HOST, EMAIL_PORT, EMAIL_USER, and EMAIL_PASS from .env
     const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST, // e.g., smtp-relay.brevo.com
-        port: process.env.EMAIL_PORT, // e.g., 587
-        secure: false, // Use 'false' for port 587 (TLS), 'true' for port 465 (SSL)
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT, 
+        secure: false, 
         auth: {
-            user: process.env.EMAIL_USER, // Brevo SMTP Login
-            pass: process.env.EMAIL_PASS, // Brevo SMTP Key
+            user: process.env.EMAIL_USER, 
+            pass: process.env.EMAIL_PASS, 
         }
     });
 
-    // 4. Define the Email Content
     const mailOptions = {
-        from: process.env.SENDER_EMAIL, // Must be the verified 'From' address
+        from: process.env.SENDER_EMAIL, 
         to: user.email,
         subject: 'E-commerce Store: Verify Your Email Address',
         html: `
@@ -46,7 +41,6 @@ const sendVerificationEmail = async (user) => {
         `,
     };
 
-    // 5. Send the email
     await transporter.sendMail(mailOptions);
 };
 
