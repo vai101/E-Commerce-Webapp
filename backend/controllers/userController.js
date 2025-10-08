@@ -30,7 +30,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         try {
-            await sendVerificationEmail(user);
+            const verificationToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+            await sendVerificationEmail(user, verificationUrl);
             res.status(201).json({
                 _id: user._id,
                 name: user.name,
